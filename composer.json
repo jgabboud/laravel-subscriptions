@@ -15,7 +15,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Jgabboud\\SUbscriptions\\PermissionServiceProvider"
+                "Jgabboud\\Subscriptions\\PermissionServiceProvider"
             ]
         }
     },
