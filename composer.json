@@ -7,17 +7,5 @@
             "email": "jgabboud99@outlook.com"
         }
     ],
-    "extra": {
-        "laravel": {
-            "providers": [
-                "jgabboud\\subscriptions\\Providers\\SubscriptionServiceProvider"
-            ]
-        }
-    },
-    "autoload": {
-        "psr-4": {
-            "Jgabboud\\Subscriptions\\": "src/"
-        }
-    },
     "require": {}
 }
