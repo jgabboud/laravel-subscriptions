@@ -2,6 +2,7 @@
 
 namespace Jgabboud\Subscriptions;
 
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Collection;
 
