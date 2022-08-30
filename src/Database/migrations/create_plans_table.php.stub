@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        //-- create plans table
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
             $table->string('slug');
@@ -35,6 +36,60 @@ return new class extends Migration
             
             $table->unique(['slug']);
         });
+
+        //-- create plan items
+        Schema::create('plan_items', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('plan_id');
+            $table->string('slug');
+            $table->json('name');
+            $table->json('description')->nullable();
+            $table->string('value');
+            $table->integer('resettable_period')->default(0);
+            $table->string('resettable_interval')->default('month');
+            $table->integer('sort_order')->default(0);
+            $table->timestamps();
+            $table->softDeletes();
+            
+            $table->unique(['plan_id', 'slug']);
+            $table->foreign('plan_id')->references('id')->on('plans');
+        });
+
+        //-- create plan subscriptions table
+        Schema::create('plan_subscriptions', function (Blueprint $table) {
+            $table->id();
+            $table->morphs('subscriber');
+            $table->unsignedBigInteger('plan_id');
+            $table->string('slug');
+            $table->json('name');
+            $table->json('description')->nullable();
+            $table->dateTime('trial_ends_at')->nullable();
+            $table->dateTime('starts_at')->nullable();
+            $table->dateTime('ends_at')->nullable();
+            $table->dateTime('cancels_at')->nullable();
+            $table->dateTime('canceled_at')->nullable();
+            $table->string('timezone')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('plan_id')->references('id')->on('plans');
+        });
+
+        //-- create plan subscription usages table
+        Schema::create('plan_subscription_usages', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('subscription_id');
+            $table->unsignedBigInteger('item_id');
+            $table->integer('used');
+            $table->dateTime('valid_until')->nullable();
+            $table->string('timezone')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+
+            $table->unique(['subscription_id', 'item_id']);
+            $table->foreign('subscription_id')->references('id')->on('plan_subscriptions');
+            $table->foreign('item_id')->references('id')->on('plan_items');
+        });
     }
 
     /**
@@ -45,5 +100,8 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('plans');
+        Schema::dropIfExists('plan_subscriptions');
+        Schema::dropIfExists('plan_items');
+        Schema::dropIfExists('plan_subscription_usages');
     }
 };
