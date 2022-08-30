@@ -25,7 +25,7 @@ class SubscriptionServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadRoutesFrom(__DIR__.'/routes/web.php');
+        // $this->loadRoutesFrom(__DIR__.'/routes/web.php');
 
         $this->publishes([
           __DIR__ . '/database/migrations/create_plans_table.php.stub' => $this->getMigrationFileName('create_plans_tables.php'),
