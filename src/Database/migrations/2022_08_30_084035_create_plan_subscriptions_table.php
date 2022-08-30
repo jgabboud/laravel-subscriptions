@@ -13,20 +13,22 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('plan_items', function (Blueprint $table) {
+        Schema::create('plan_subscriptions', function (Blueprint $table) {
             $table->id();
+            $table->morphs('subscriber');
             $table->unsignedBigInteger('plan_id');
             $table->string('slug');
             $table->json('name');
             $table->json('description')->nullable();
-            $table->string('value');
-            $table->integer('resettable_period')->default(0);
-            $table->string('resettable_interval')->default('month');
-            $table->integer('sort_order')->default(0);
+            $table->dateTime('trial_ends_at')->nullable();
+            $table->dateTime('starts_at')->nullable();
+            $table->dateTime('ends_at')->nullable();
+            $table->dateTime('cancels_at')->nullable();
+            $table->dateTime('canceled_at')->nullable();
+            $table->string('timezone')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            
-            $table->unique(['plan_id', 'slug']);
+
             $table->foreign('plan_id')->references('id')->on('plans');
         });
     }
@@ -38,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plan_items');
+        Schema::dropIfExists('plan_subscriptions');
     }
 };

@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
             $table->string('slug');
-            $table->string('name');
-            $table->string('description')->nullable();
+            $table->json('name');
+            $table->json('description')->nullable();
             $table->decimal('price')->default('0.00');
             $table->string('currency', 3);             
             $table->integer('trial_period')->default(0); #free trial period
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->integer('active_subscribers_limit')->nullable();
             $table->date('issue_date')->nullable();
             $table->integer('sort_order')->default(0);    
-            $table->booleam('is_active')->default(true);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->softDeletes();
             
