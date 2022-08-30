@@ -13,7 +13,7 @@ class SubscriptionServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->make('Jgabboud\Subscriptions\Http\Controllers\SubscriptionController');
+        $this->app->make('Jgabboud\Subscriptions\Http\Controllers\PlanController');
     }
 
     /**
@@ -28,9 +28,9 @@ class SubscriptionServiceProvider extends ServiceProvider
         
         if ($this->app->runningInConsole()) {
             // Export the migration
-            if (! class_exists('CreateSubscriptionsTable')) {
+            if (! class_exists('CreatePlansTable')) {
               $this->publishes([
-                __DIR__ . '/../database/migrations/create_subscriptions_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_subscriptions_table.php'),
+                __DIR__ . '/../database/migrations/create_plans_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_plans_table.php'),
                 // you can add any number of migrations here
               ], 'migrations');
             }
