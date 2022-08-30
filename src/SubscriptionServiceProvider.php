@@ -26,19 +26,12 @@ class SubscriptionServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
-        // $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
-        
-        // if ($this->app->runningInConsole()) {
-        //     // Export the migration
-
-        //     if (! class_exists('CreatePlansTable')) {
-              
-        //     }
-
-        //   }
 
         $this->publishes([
-          __DIR__ . '/../database/migrations/create_plans_table.php.stub' => $this->getMigrationFileName('create_plans_tables.php'),
+          __DIR__ . '/database/migrations/create_plans_table.php.stub' => $this->getMigrationFileName('create_plans_tables.php'),
+          __DIR__ . '/database/migrations/create_plan_subscriptions_table.php.stub' => $this->getMigrationFileName('create_plan_subscriptions_table.php'),
+          __DIR__ . '/database/migrations/create_plan_items_table.php.stub' => $this->getMigrationFileName('create_plan_items_table.php'),
+          __DIR__ . '/database/migrations/create_plan_subscription_usages_table.php.stub' => $this->getMigrationFileName('create_plan_subscription_usages_table.php'),
         ], 'migrations');
     }
 
