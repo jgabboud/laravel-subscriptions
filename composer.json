@@ -1,6 +1,6 @@
 {
     "name": "jgabboud/subscriptions",
-    "description": "This package will allow you to have dynamic subscriptions with their respective middlewares, enjoy!",    
+    "description": "A Laravel package that will allow you to have dynamic subscriptions with free trials and discounts and with their respective middlewares, enjoy!",    
     "type": "library",
     "license": "MIT",
     "authors": [
