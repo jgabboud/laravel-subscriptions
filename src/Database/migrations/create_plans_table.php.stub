@@ -35,18 +35,7 @@ return new class extends Migration
             $table->softDeletes();
             
             $table->unique(['slug']);
-        });
-
-        //-- create plan has items
-        Schema::create('plan_has_items', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('plan_id');
-            $table->unsignedBigInteger('item_id');
-            
-            $table->unique(['plan_id', 'item_id']);
-            $table->foreign('plan_id')->references('id')->on('plans')->onDelete('cascade');
-            $table->foreign('item_id')->references('id')->on('plan_items')->onDelete('cascade');
-        });
+        });        
 
         //-- create plan items
         Schema::create('plan_items', function (Blueprint $table) {
@@ -64,6 +53,17 @@ return new class extends Migration
             $table->unique('slug');
         });
 
+        //-- create plan has items
+        Schema::create('plan_has_items', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('plan_id');
+            $table->unsignedBigInteger('item_id');
+            
+            $table->unique(['plan_id', 'item_id']);
+            $table->foreign('plan_id')->references('id')->on('plans')->onDelete('cascade');
+            $table->foreign('item_id')->references('id')->on('plan_items')->onDelete('cascade');
+        });
+        
         //-- create plan subscriptions table
         Schema::create('plan_subscriptions', function (Blueprint $table) {
             $table->id();
