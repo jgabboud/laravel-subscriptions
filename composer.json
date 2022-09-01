@@ -1,5 +1,5 @@
 {
-    "name": "jgabboud/subscriptions",
+    "name": "jgabboud/laravel-subscriptions",
     "description": "A Laravel package that will allow you to have dynamic subscriptions with free trials and discounts and with their respective middlewares, enjoy!",    
     "type": "library",
     "license": "MIT",
