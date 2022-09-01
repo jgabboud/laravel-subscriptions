@@ -15,7 +15,7 @@ class SubscriptionServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->make('Jgabboud\Subscriptions\Http\Controllers\PlanController');
+        #$this->app->make('Jgabboud\Subscriptions\Http\Controllers\PlanController');
     }
 
     /**
