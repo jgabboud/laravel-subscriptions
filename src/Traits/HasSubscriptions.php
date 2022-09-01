@@ -19,7 +19,7 @@ trait HasSubscriptions
     //
     public function planSubscriptions()
     {
-        return $this->morphMany('plan_subscriptions', 'subscriber', 'subscriber_type', 'subscriber_id');
+        return $this->morphMany(PlanSubscription::class, 'subscriber', 'subscriber_type', 'subscriber_id');
     }
 
     //

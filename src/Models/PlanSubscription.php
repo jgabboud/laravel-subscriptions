@@ -38,11 +38,11 @@ class PlanSubscription extends Model
     {
         parent::boot();
 
-        static::validating(function (self $model) {
-            if (! $model->starts_at || ! $model->ends_at) {
-                $model->setNewPeriod();
-            }
-        });
+        // static::validating(function (self $model) {
+        //     if (! $model->starts_at || ! $model->ends_at) {
+        //         $model->setNewPeriod();
+        //     }
+        // });
 
         static::deleted(function ($subscription) {
             $subscription->usage()->delete();
