@@ -3,6 +3,8 @@
 namespace Jgabboud\Subscriptions\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
+use Spatie\EloquentSortable\SortableTrait;
 use Jgabboud\Subscriptions\Models\PlanItem;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,10 +14,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Plan extends Model
 {
     use HasFactory;
-    use SoftDeletes;
-    
+    use SoftDeletes;    
+    use SortableTrait;
+    use HasTranslations;
+
     protected $guarded = [];
     protected $table = 'plans';
+    public $translatable = [
+        'name',
+        'description',
+    ];
+    public $sortable = [
+        'order_column_name' => 'sort_order',
+    ];
     protected $fillable = [
         'slug',
         'name',
@@ -34,36 +45,21 @@ class Plan extends Model
         'is_active'
     ];
 
-// == CONSTRUCT 
+// == CONSTRUCT and DECLARATIONS
 
+    //-- constructor
     public function __construct(array $attributes = array())
     {
-        $this->validate();
         parent::__construct($attributes);
     }
 
-//
+    //-- define default deleting action
+    public static function boot() {
+        parent::boot();
 
-// == Validation
-
-    //-- data validation
-    public function validate(){
-        $this->mergeRules([
-            'slug' => 'required|alpha_dash|max:150|unique:plans,slug',
-            'name' => 'required|string|max:150',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric',
-            'currency' => 'required|alpha|size:3',
-            'trial_period' => 'nullable|integer',
-            'trial_interval' => 'nullable|in:hour,day,week,month',
-            'invoice_period' => 'nullable|integer',
-            'invoice_interval' => 'nullable|in:hour,day,week,month',
-            'grace_period' => 'nullable|integer',
-            'grace_interval' => 'nullable|in:hour,day,week,month',
-            'active_subscribers_limit' => 'nullable|integer',
-            'sort_order' => 'nullable|integer',
-            'is_active' => 'required|boolean',
-        ]);
+        static::deleting(function($plan) { 
+                $plan->items()->delete();
+        });
     }
 
 //

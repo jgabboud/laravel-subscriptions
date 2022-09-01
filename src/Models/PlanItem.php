@@ -2,8 +2,11 @@
 
 namespace Jgabboud\Subscriptions\Models;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Jgabboud\Subscriptions\Models\Plan;
+use Spatie\Translatable\HasTranslations;
+use Spatie\EloquentSortable\SortableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,10 +14,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class PlanItem extends Model
 {
     use HasFactory;
-    use SoftDeletes;
+    use SoftDeletes; 
+    use SortableTrait;
+    use HasTranslations;
     
     protected $guarded = [];
     protected $table = 'plan_items';
+    public $translatable = [
+        'name',
+        'description',
+    ];
+    public $sortable = [
+        'order_column_name' => 'sort_order',
+    ];
     protected $fillable = [
         'plan_id',
         'slug',
@@ -25,35 +37,24 @@ class PlanItem extends Model
         'resettable_interval',
         'sort_order'
     ];
-
+   
 // == CONSTRUCT 
 
+    //-- constructor
     public function __construct(array $attributes = array())
     {
-        $this->validate();
         parent::__construct($attributes);
     }
 
-//
+    //-- define default deleting action
+    protected static function boot()
+    {
+        parent::boot();
 
-// == Validation
-
-    //-- data validation
-    public function validate(){
-        $this->mergeRules([
-            'plan_id' => 'required|integer|exists:plans,id',
-            'slug' => 'required|alpha_dash|max:150|unique:plans,slug',
-            'name' => 'required|string|max:150',
-            'description' => 'nullable|string',
-            'value' => 'required|string',
-            'currency' => 'required|alpha|size:3',
-            'resettable_period' => 'nullable|integer',
-            'resettable_interval' => 'nullable|in:hour,day,week,month',
-            'sort_order' => 'nullable|integer',
-            'is_active' => 'required|boolean',
-        ]);
+        static::deleted(function ($plan_feature) {
+            $plan_feature->usage()->delete();
+        });
     }
-
 //
 
 // == RELATIONS
@@ -71,5 +72,15 @@ class PlanItem extends Model
     }
 
 //
+
+
+// == QUERIES
+
+    //-- get reset date of a plan item
+    public function getResetDate(Carbon $dateFrom)#: Carbon
+    {
+        #$period = new Period($this->resettable_interval, $this->resettable_period, $dateFrom ?? now());
+        #return $period->getEndDate();
+    }
 
 }
