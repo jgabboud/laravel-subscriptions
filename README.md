@@ -1,6 +1,8 @@
 # Laravel Subscriptions  
 A Laravel package that will allow you to have dynamic subscriptions with free trials and discounts with their respective middlewares, enjoy!
 
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+
 The library consists of 5 main tables: <br>
 plans <br>
 plan_has_items <br>
