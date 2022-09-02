@@ -1,9 +1,24 @@
+A Laravel package that will allow you to have dynamic subscriptions with free trials and discounts with their respective middlewares, enjoy!
+
 The library consists of 5 main tables: <br>
 plans <br>
 plan_has_items <br>
 plan_items <br>
 plan_subscriptions <br>
 plan_subscription_usages
+
+Installation
+=========
+
+install the package using composer
+```
+composer require jgabboud/subscriptions
+```
+
+publish the vendor
+ ```
+ php artisan vendor:publish --provider="Jgabboud\Subscriptions\SubscriptionServiceProvider"
+ ```
 
 Structure
 =========
