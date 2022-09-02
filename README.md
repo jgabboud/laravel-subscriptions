@@ -1,3 +1,5 @@
+A Laravel package that will allow you to have dynamic subscriptions with free trials and discounts with their respective middlewares, enjoy!
+
 The library consists of 5 main tables: <br>
 plans <br>
 plan_has_items <br>
