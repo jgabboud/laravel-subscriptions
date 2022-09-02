@@ -8,10 +8,12 @@ plan_subscription_usages
 Installation
 =========
 
+install the package using composer
 ```
 composer require jgabboud/subscriptions
 ```
 
+publish the vendor
  ```
  php artisan vendor:publish --provider="Jgabboud\Subscriptions\SubscriptionServiceProvider"
  ```
