@@ -1,3 +1,4 @@
+# Laravel Subscriptions  
 A Laravel package that will allow you to have dynamic subscriptions with free trials and discounts with their respective middlewares, enjoy!
 
 The library consists of 5 main tables: <br>
@@ -7,9 +8,7 @@ plan_items <br>
 plan_subscriptions <br>
 plan_subscription_usages
 
-Installation
-=========
-
+## Installation
 install the package using composer
 ```
 composer require jgabboud/subscriptions
@@ -20,8 +19,7 @@ publish the vendor
  php artisan vendor:publish --provider="Jgabboud\Subscriptions\SubscriptionServiceProvider"
  ```
 
-Usage
-=====
+## Usage
 First let's add the subscription out Model, supposedly the User Model 
 
 ```php
@@ -53,8 +51,7 @@ Plan::create([
 ```
 notice the duration type, whether *trial_duration_type* or *package_duration_type*, can be `days` ` month` or `year`
 
-Structure
-=========
+## Structure
 The plan table will hold the the details of each plan regarding the name description, prices, trial periods and more.
 Now a plan might have many features or items inside it e.g  maximum number of products you can create using this subscription.
 Hence we will use the plan_items table to initialize these items.
@@ -67,8 +64,7 @@ track of what the plan was really like when the user subscribed at that day, sin
 and the newly updated plan shouldn't take effect on the what the users has really subscribed for back then, but should take effect
 as of new subscriptions.
 
-Free Trials
-==========
+## Free Trials
 you can create a package, name it "30 days Free Trial", give it 30 days trial period and the invoice period will be 0.
 In this you have a created a free trial for the users.
 on the other hand you can as well give an ongoing subscription a free trial by adding the free trial period to it along with the
@@ -83,13 +79,11 @@ the subscription.
 
 One can always cancel a subscription
 
-Addons and Bundles
-==================
+## Addons and Bundles
 you can later add add another table that will have more than one item in it and a user can buy that bundle and, similarly, 
 append the items to plan_subscription_usages with an addon flag 
 
-Pay as You Go
-=============
+## Pay as You Go
 by default the subscriptions library has no limitations on how many times the items should be used and thus you can specify 
 a functionality that will calculate how many time the item has been used a set a billing price for it.
 
