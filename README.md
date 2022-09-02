@@ -2,6 +2,7 @@
 A Laravel package that will allow you to have dynamic subscriptions with free trials and discounts with their respective middlewares, enjoy!
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Total Downloads](https://img.shields.io/packagist/dt/jgabboud/subscriptions.svg?style=flat-square)](https://packagist.org/packages/jgabboud/subscriptions)
 
 The library consists of 5 main tables: <br>
 plans <br>
