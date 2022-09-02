@@ -13,8 +13,8 @@ class PlanSubscription extends Model
     use HasFactory;
     use HasTranslations;
     public $translatable = [
-        'name',
-        'description',
+        'plan_name',
+        'plan_description',
     ];
     protected $fillable = [
         'subscriber_id',
@@ -37,7 +37,7 @@ class PlanSubscription extends Model
     protected static function boot()
     {
         parent::boot();
-        
+
         static::deleted(function ($subscription) {
             $subscription->usage()->delete();
         });

@@ -4,6 +4,7 @@ namespace Jgabboud\Subscriptions\Models;
 
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\EloquentSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Spatie\EloquentSortable\SortableTrait;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Jgabboud\Subscriptions\Models\PlanSubscription;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Plan extends Model
+class Plan extends Model implements Sortable
 {
     use HasSlug;
     use HasFactory;
@@ -29,6 +30,7 @@ class Plan extends Model
     ];
     public $sortable = [
         'order_column_name' => 'sort_order',
+        'sort_when_creating' => true,
     ];
     protected $fillable = [
         'slug',
