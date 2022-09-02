@@ -24,7 +24,7 @@ Usage
 =====
 First let's add the subscription out Model, supposedly the User Model 
 
-<code>
+```php
 use Jgabboud\Subscriptions\Traits\HasSubscriptions;
 
 class MyModel extends Model
@@ -33,12 +33,12 @@ class MyModel extends Model
     
     //...
 }
-</code>
+```
 
 Now let's make use of our subscriptions!
 
 In order to create a plan we will do the following:
-```
+```php
 Plan::create([
     'name' => 'Gold Plan',
     'description' => 'This plan is the one for you',
