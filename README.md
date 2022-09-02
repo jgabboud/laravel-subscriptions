@@ -20,6 +20,39 @@ publish the vendor
  php artisan vendor:publish --provider="Jgabboud\Subscriptions\SubscriptionServiceProvider"
  ```
 
+Usage
+=====
+First let's add the subscription out Model, supposedly the User Model 
+
+```
+use Jgabboud\Subscriptions\Traits\HasSubscriptions;
+
+class MyModel extends Model
+{
+    use HasSubscriptions;
+    
+    //...
+}
+```
+
+Now let's make use of our subscriptions!
+
+In order to create a plan we will do the following:
+```
+Plan::create([
+    'name' => 'Gold Plan',
+    'description' => 'This plan is the one for you',
+    'price' => 25.50,
+    'currency' => 'USD',
+    'trial_duration' => 20,
+    'trial_duration_type' => 'days',
+    'package_duration' => 1,
+    'package_duration_type' => 'month',
+    'subscriptions_limit' => 1500    
+]);
+```
+notice the duration type, whether trial_duration_type or package_duration_type, can be days, month, or year
+
 Structure
 =========
 The plan table will hold the the details of each plan regarding the name description, prices, trial periods and more.
