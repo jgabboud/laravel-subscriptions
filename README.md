@@ -5,6 +5,17 @@ plan_items <br>
 plan_subscriptions <br>
 plan_subscription_usages
 
+Installation
+=========
+
+```
+composer require jgabboud/subscriptions
+```
+
+ ```
+ php artisan vendor:publish --provider="Jgabboud\Subscriptions\SubscriptionServiceProvider"
+ ```
+
 Structure
 =========
 The plan table will hold the the details of each plan regarding the name description, prices, trial periods and more.
