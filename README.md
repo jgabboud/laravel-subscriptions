@@ -24,7 +24,7 @@ Usage
 =====
 First let's add the subscription out Model, supposedly the User Model 
 
-```
+<code>
 use Jgabboud\Subscriptions\Traits\HasSubscriptions;
 
 class MyModel extends Model
@@ -33,7 +33,7 @@ class MyModel extends Model
     
     //...
 }
-```
+</code>
 
 Now let's make use of our subscriptions!
 
