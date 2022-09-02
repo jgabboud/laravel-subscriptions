@@ -3,6 +3,15 @@
     "description": "A Laravel package that will allow you to have dynamic subscriptions with free trials and discounts with their respective middlewares, enjoy!",    
     "type": "library",
     "license": "MIT",
+    "keywords":
+        [
+            "laravel",
+            "subscriptions",
+            "subscribe",
+            "plan",
+            "package",
+            "model"
+        ],
     "authors": [
         {
             "name": "Joseph Abboud",

@@ -21,13 +21,13 @@ return new class extends Migration
             $table->json('description')->nullable();
             $table->decimal('price')->default('0.00');
             $table->string('currency', 3);             
-            $table->integer('trial_period')->default(0); #free trial period
-            $table->string('trial_interval')->default('day');
-            $table->integer('invoice_period')->default(0); #how a much the subscription lasts
-            $table->string('invoice_interval')->default('month');
-            $table->integer('grace_period')->default(0); #notice period for late payment
-            $table->string('grace_interval')->default('day');
-            $table->integer('active_subscribers_limit')->nullable();
+            $table->integer('trial_duration')->default(0); #free trial period
+            $table->string('trial_duration_type')->default('day');
+            $table->integer('package_duration')->default(0); #how a much the subscription lasts
+            $table->string('package_duration_type')->default('month');
+            $table->integer('grace_duration')->default(0); #notice period for late payment
+            $table->string('grace_duration_type')->default('day');
+            $table->integer('subscriptions_limit')->nullable();
             $table->date('issue_date')->nullable();
             $table->integer('sort_order')->default(0);    
             $table->boolean('is_active')->default(true);
