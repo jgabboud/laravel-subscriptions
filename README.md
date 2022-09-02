@@ -51,7 +51,7 @@ Plan::create([
     'subscriptions_limit' => 1500    
 ]);
 ```
-notice the duration type, whether trial_duration_type or package_duration_type, can be days, month, or year
+notice the duration type, whether *trial_duration_type* or *package_duration_type*, can be `days` ` month` or `year`
 
 Structure
 =========
