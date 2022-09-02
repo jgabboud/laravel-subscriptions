@@ -42,16 +42,8 @@ class PlanSubscriptionUsage extends Model
 
 // == QUERIES
 
-    //-- scope by feature slug
-    // public function scopeByFeatureSlug(Builder $builder, string $featureSlug): Builder
-    // {
-    //     $feature = app('plan_items')->where('slug', $featureSlug)->first();
-
-    //     return $builder->where('feature_id', $feature ? $feature->getKey() : null);
-    // }
-
-    //-- check if expired
-    public function expired(): bool
+    //-- check if subscription item has expired
+    public function isExpired(): bool
     {
         if (is_null($this->valid_until)) {
             return false;

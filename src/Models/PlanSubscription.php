@@ -37,13 +37,7 @@ class PlanSubscription extends Model
     protected static function boot()
     {
         parent::boot();
-
-        // static::validating(function (self $model) {
-        //     if (! $model->starts_at || ! $model->ends_at) {
-        //         $model->setNewPeriod();
-        //     }
-        // });
-
+        
         static::deleted(function ($subscription) {
             $subscription->usage()->delete();
         });
@@ -158,42 +152,6 @@ class PlanSubscription extends Model
 
         return $this;
     }
-
-    // public function scopeOfSubscriber(Builder $builder, Model $subscriber): Builder
-    // {
-    //     return $builder->where('subscriber_type', $subscriber->getMorphClass())->where('subscriber_id', $subscriber->getKey());
-    // }
-
-    // public function scopeFindEndingTrial(Builder $builder, int $dayRange = 3): Builder
-    // {
-    //     $from = Carbon::now();
-    //     $to = Carbon::now()->addDays($dayRange);
-
-    //     return $builder->whereBetween('trial_ends_at', [$from, $to]);
-    // }
-
-    // public function scopeFindEndedTrial(Builder $builder): Builder
-    // {
-    //     return $builder->where('trial_ends_at', '<=', now());
-    // }
-
-    // public function scopeFindEndingPeriod(Builder $builder, int $dayRange = 3): Builder
-    // {
-    //     $from = Carbon::now();
-    //     $to = Carbon::now()->addDays($dayRange);
-
-    //     return $builder->whereBetween('ends_at', [$from, $to]);
-    // }
-
-    // public function scopeFindEndedPeriod(Builder $builder): Builder
-    // {
-    //     return $builder->where('ends_at', '<=', now());
-    // }
-
-    // public function scopeFindActive(Builder $builder): Builder
-    // {
-    //     return $builder->where('ends_at', '>', now());
-    // }
 
     //-- set new period === TODO
     protected function setNewPeriod($invoice_interval = '', $invoice_period = '', $start = '')

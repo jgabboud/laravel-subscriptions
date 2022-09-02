@@ -28,7 +28,7 @@
         "illuminate/support": "^9.0.0 || ^10.0.0",
         "spatie/eloquent-sortable": "^4.0.0",
         "spatie/laravel-sluggable": "^3.3.0",
-        "spatie/laravel-translatable": "^5.2.0"
+        "spatie/laravel-translatable": "^6.0"
     },    
     "minimum-stability": "dev",
     "prefer-stable": true

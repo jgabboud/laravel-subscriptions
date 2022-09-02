@@ -2,6 +2,8 @@
 
 namespace Jgabboud\Subscriptions\Models;
 
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Spatie\EloquentSortable\SortableTrait;
@@ -13,6 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Plan extends Model
 {
+    use HasSlug;
     use HasFactory;
     use SoftDeletes;    
     use SortableTrait;
@@ -62,6 +65,13 @@ class Plan extends Model
         });
     }
 
+    //-- get slugs options required from slug package by spatie
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
+    }
 //
 
 // == RELATIONS
