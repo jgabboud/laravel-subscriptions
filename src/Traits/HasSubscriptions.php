@@ -90,6 +90,7 @@ trait HasSubscriptions
 
         return $this->planSubscriptions()->create([
             'plan_id' => $plan->id,
+            'plan_slug' => $plan->slug,
             'plan_name' => $plan->name,
             'plan_description' => $plan->description,
             'trial_starts_at' => $trial->start_date,
