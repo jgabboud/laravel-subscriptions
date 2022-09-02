@@ -5,10 +5,11 @@ namespace Jgabboud\Subscriptions\Traits;
 use Carbon\Carbon;
 use Jgabboud\Subscriptions\Models\Plan;
 use Jgabboud\Subscriptions\Models\PlanSubscription;
+use stdClass;
 
 trait HasSubscriptions
 {
-    abstract public function morphMany($related, $name, $type = null, $id = null, $localKey = null);
+    
 
 // == DECLARATION
 
@@ -23,11 +24,32 @@ trait HasSubscriptions
     //-- RELATION 
     public function planSubscriptions()
     {
+        #morphMany: $related, $name, $type = null, $id = null, $localKey = null
         return $this->morphMany(PlanSubscription::class, 'subscriber', 'subscriber_type', 'subscriber_id');
+    }
+
+    private function intervalDates($interval, $period, $start){
+        $date = new stdClass();
+        $date->start_date = $start;
+        switch($period){
+            case "days":
+                $date->end_date = $start->addDays($interval);
+                break;
+            case "month":
+                $date->end_date = $start->addMonths($interval);
+                break;
+            case "year":
+                $date->end_date = $start->addYears($interval);
+                break;
+            default:
+                $date->end_date = $start->addMonths($interval);
+                break;
+        }
+        return $date;
     }
 //
 
-// == QUERIES
+// == GET
 
     //-- get currently active subscriptions
     public function activePlanSubscriptions()
@@ -55,21 +77,28 @@ trait HasSubscriptions
         return $subscription && $subscription->active();
     }
 
+// 
+
+// == EDIT
+
     //-- subscribe to a new plan
-    public function subscribe($subscription, Plan $plan, Carbon $startDate = null)#: PlanSubscription
+    public function subscribe(Plan $plan): PlanSubscription
     {
-        // $trial = new Period($plan->trial_interval, $plan->trial_period, $startDate ?? now());
-        // $period = new Period($plan->invoice_interval, $plan->invoice_period, $trial->getEndDate());
+    
+        $trial = $this->intervalDates($plan->trial_interval, $plan->trial_period, Carbon::now());
+        $issue = $this->intervalDates($plan->trial_interval, $plan->trial_period, $trial->end_date);            
 
-        // return $this->planSubscriptions()->create([
-        //     'name' => $subscription,
-        //     'plan_id' => $plan->getKey(),
-        //     'trial_ends_at' => $trial->getEndDate(),
-        //     'starts_at' => $period->getStartDate(),
-        //     'ends_at' => $period->getEndDate(),
-        // ]);
+        return $this->planSubscriptions()->create([
+            'plan_id' => $plan->id,
+            'plan_name' => $plan->name,
+            'plan_description' => $plan->description,
+            'trial_starts_at' => $trial->start_date,
+            'trial_ends_at' => $trial->end_date,
+            'starts_at' => $issue->start_date,
+            'ends_at' => $issue->end_date
+        ]);
     }
-
 //
+
 
 }
