@@ -25,8 +25,6 @@ return new class extends Migration
             $table->string('trial_duration_type')->default('day');
             $table->integer('package_duration')->default(0); #how a much the subscription lasts
             $table->string('package_duration_type')->default('month');
-            $table->integer('grace_duration')->default(0); #notice period for late payment
-            $table->string('grace_duration_type')->default('day');
             $table->integer('subscriptions_limit')->nullable();
             $table->date('issue_date')->nullable();
             $table->integer('sort_order')->default(0);    

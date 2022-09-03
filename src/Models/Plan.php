@@ -42,8 +42,6 @@ class Plan extends Model implements Sortable
         'trial_duration_type',
         'package_duration',
         'package_duration_type',
-        'grace_duration',
-        'grace_duration_type',
         'subscriptions_limit',
         'issue_date',
         'sort_order',
@@ -97,25 +95,19 @@ class Plan extends Model implements Sortable
     //-- check if plan is free
     public function isFree(): bool
     {
-        return (float) $this->price <= 0.00;
+        return $this->price <= 0;
+    }
+
+    //-- check if plan is active
+    public function isActive(): bool
+    {
+        return $this->price <= 0;
     }
 
     //-- check if plan has trial
     public function hasTrial(): bool
     {
         return $this->trial_period && $this->trial_interval;
-    }
-
-    //-- check if plan has grace
-    public function hasGrace(): bool
-    {
-        return $this->grace_period && $this->grace_interval;
-    }
-
-    //-- get plan item by slug
-    public function getItemBySlug(string $itemSlug)
-    {
-        return $this->items()->where('slug', $itemSlug)->first();
     }
 
     //-- activate plan
