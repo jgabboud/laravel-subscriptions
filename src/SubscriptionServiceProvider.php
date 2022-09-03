@@ -15,7 +15,7 @@ class SubscriptionServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        #$this->app->make('Jgabboud\Subscriptions\Http\Controllers\PlanController');
+        
     }
 
     /**
@@ -25,15 +25,13 @@ class SubscriptionServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // $this->loadRoutesFrom(__DIR__.'/routes/web.php');
-
         $this->publishes([
           __DIR__ . '/database/migrations/create_plans_table.php.stub' => $this->getMigrationFileName('create_plans_tables.php'),
         ], 'migrations');
     }
 
     /**
-     * Returns existing migration file if found, else uses the current timestamp.
+     * check if migration already exists or get with current timestamp
      *
      * @return string
      */
