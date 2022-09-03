@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Translatable\HasTranslations;
 
-class PlanSubscriptionUsage extends Model
+class PlanSubscriptionItem extends Model
 {
     use HasFactory;
     use SoftDeletes;

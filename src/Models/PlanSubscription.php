@@ -173,7 +173,7 @@ class PlanSubscription extends Model
     }
 
     //-- record item usage
-    public function recordItemUsage(string $featureSlug, int $uses = 1, bool $incremental = true): PlanSubscriptionUsage
+    public function recordItemUsage(string $featureSlug, int $uses = 1, bool $incremental = true): PlanSubscriptionItem
     {
         $feature = $this->plan->features()->where('slug', $featureSlug)->first();
 
@@ -204,7 +204,7 @@ class PlanSubscription extends Model
     }
 
     //-- reduce item usage
-    public function reduceFeatureUsage(string $featureSlug, int $uses = 1): ?PlanSubscriptionUsage
+    public function reduceFeatureUsage(string $featureSlug, int $uses = 1): ?PlanSubscriptionItem
     {
         $usage = $this->usage()->byFeatureSlug($featureSlug)->first();
 

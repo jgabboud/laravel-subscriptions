@@ -86,8 +86,8 @@ return new class extends Migration
             $table->foreign('plan_id')->references('id')->on('plans');
         });
 
-        //-- create plan subscription usages table
-        Schema::create('plan_subscription_usages', function (Blueprint $table) {
+        //-- create plan subscription items table
+        Schema::create('plan_subscription_items', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('subscription_id');
             $table->unsignedBigInteger('item_id');
@@ -118,6 +118,6 @@ return new class extends Migration
         Schema::dropIfExists('plan_has_items');
         Schema::dropIfExists('plan_items');
         Schema::dropIfExists('plan_subscriptions');
-        Schema::dropIfExists('plan_subscription_usages');
+        Schema::dropIfExists('plan_subscription_items');
     }
 };
