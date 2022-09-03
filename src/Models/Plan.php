@@ -110,6 +110,18 @@ class Plan extends Model implements Sortable
         return $this->trial_period && $this->trial_interval;
     }
 
+    //-- assign items to plan
+    public function assignItems($items)
+    {
+        return $this->items()->sync($items, false);
+    }
+
+    //-- remove items from plan
+    public function revokeItems($items)
+    {
+        return $this->items()->detach($items);
+    }
+    
     //-- activate plan
     public function activate()
     {
