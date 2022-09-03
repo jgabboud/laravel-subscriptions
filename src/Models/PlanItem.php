@@ -38,8 +38,8 @@ class PlanItem extends Model implements Sortable
         'name',
         'description',
         'value',
-        'resettable_period',
-        'resettable_interval',
+        'item_duration',
+        'item_duration_type',
         'sort_order'
     ];
    

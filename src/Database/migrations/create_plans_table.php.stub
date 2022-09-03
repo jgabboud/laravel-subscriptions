@@ -44,8 +44,8 @@ return new class extends Migration
             $table->json('name');
             $table->json('description')->nullable();
             $table->string('value');
-            $table->integer('resettable_period')->default(0);
-            $table->string('resettable_interval')->default('month');
+            $table->integer('item_duration')->default(0);
+            $table->string('item_duration_type')->default('month');
             $table->integer('sort_order')->default(0);
             $table->timestamps();
             $table->softDeletes();
