@@ -80,15 +80,15 @@ class PlanItem extends Model implements Sortable
     }
 
     //-- subscription usage
-    public function usage()
+    public function subscriptionItems()
     {
-        return $this->hasMany(PlanSubscriptionUsage::class);
+        return $this->hasMany(PlanSubscriptionItem::class);
     }
 
 //
 
 
-// == QUERIES
+// == FUNCTIONS
 
     //-- get reset date of a plan item
     public function getResetDate(Carbon $dateFrom)#: Carbon

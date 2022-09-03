@@ -28,6 +28,7 @@ trait HasSubscriptions
         return $this->morphMany(PlanSubscription::class, 'subscriber', 'subscriber_type', 'subscriber_id');
     }
 
+    //-- get date intervals
     private function intervalDates($interval, $period, $start){
         $date = new stdClass();
         $date->start_date = $start;

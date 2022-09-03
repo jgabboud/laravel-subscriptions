@@ -45,7 +45,7 @@ class PlanSubscriptionItem extends Model
 
 //
 
-// == QUERIES
+// == FUNCTIONS
 
     //-- check if subscription item has expired
     public function isExpired(): bool

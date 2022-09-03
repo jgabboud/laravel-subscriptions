@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Jgabboud\Subscriptions\Models\PlanSubscriptionItem;
 
 class PlanSubscription extends Model
 {
@@ -39,7 +40,7 @@ class PlanSubscription extends Model
         parent::boot();
 
         static::deleted(function ($subscription) {
-            $subscription->usage()->delete();
+            $subscription->subscriptionItems()->delete();
         });
     }
 
@@ -47,6 +48,7 @@ class PlanSubscription extends Model
 
 // == RELATIONS
 
+    //-- plan 
     public function plan()
     {
         return $this->belongsTo(Plan::class);
@@ -58,14 +60,15 @@ class PlanSubscription extends Model
         return $this->morphTo('subscriber', 'subscriber_type', 'subscriber_id', 'id');
     }
 
-    public function usage()
+    //-- susbcription items
+    public function subscriptionItems()
     {
-        return $this->hasMany(PlanSubscriptionUsage::class);
+        return $this->hasMany(PlanSubscriptionItem::class);
     }
 
 //
 
-// == QUERIES
+// == FUNCTIONS
    
 
     //-- check if subscription is active

@@ -92,7 +92,7 @@ class Plan extends Model implements Sortable
 
 //
 
-// == QUERIES
+// == FUNCTIONS
 
     //-- check if plan is free
     public function isFree(): bool
