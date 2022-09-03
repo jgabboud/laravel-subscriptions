@@ -23,6 +23,7 @@ publish the vendor
  ```
 
 ## Usage
+
 First let's add the subscription out Model, supposedly the User Model 
 
 ```php
@@ -36,11 +37,12 @@ class MyModel extends Model
 }
 ```
 
-Now let's make use of our subscriptions!
+*Now let's make use of our subscriptions!*
 
+### Plan and Items
 In order to create a plan we will do the following:
 ```php
-Plan::create([
+$plan = Plan::create([
     'name' => 'Gold Plan',
     'description' => 'This plan is the one for you',
     'price' => 25.50,
@@ -51,8 +53,59 @@ Plan::create([
     'package_duration_type' => 'month',
     'subscriptions_limit' => 1500    
 ]);
+
+//-- check if plan is active
+$plan->isActive();
+
+//-- activate plan
+$plan->activate();
+
+//-- deactivate plan
+$plan->deactivate();
 ```
 notice the duration type, whether *trial_duration_type* or *package_duration_type*, can be `days` ` month` or `year`
+> to create a free plan just set the price to 0.
+
+To check whether the plan is free just hit:
+```php
+$plan = Plan::find(1);
+$plan->isFree();
+```
+
+To assign an item to a plan first lets create the item and then assign it as follows:
+```php
+
+//-- create plan item
+PlanItem::create([
+     'name' => 'Emails', 
+     'description' => 'Limit number of emails', 
+     'value' => 70
+]);
+
+
+$plan = Plan::find(1);
+$item_ids = [1, 2];
+
+//-- assign items to plan
+$plan->assignItems($item_ids);
+
+//-- remove items from plan
+$plan->revokeItems($item_ids);
+```
+
+### Subscribers
+
+In order to subscribe a User Model to a plan:
+```php
+$plan = Plan::find(1);
+$user = User::find(1);
+
+//-- subscribe user to plan
+$user->subscribe($plan);   
+
+//-- get user subscriptions
+$user->planSubscriptions
+```
 
 ## Structure
 The plan table will hold the the details of each plan regarding the name description, prices, trial periods and more.
