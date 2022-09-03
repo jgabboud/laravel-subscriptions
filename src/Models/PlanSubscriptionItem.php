@@ -50,12 +50,9 @@ class PlanSubscriptionItem extends Model
     //-- check if subscription item has expired
     public function isExpired(): bool
     {
-        if (is_null($this->valid_until)) {
-            return false;
-        }
-
-        return Carbon::now()->gte($this->valid_until);
+        return is_null($this->valid_until);
     }
+
 //
 
 }

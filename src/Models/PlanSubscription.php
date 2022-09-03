@@ -72,15 +72,9 @@ class PlanSubscription extends Model
    
 
     //-- check if subscription is active
-    public function active(): bool
+    public function isActive(): bool
     {
         return ! $this->ended() || $this->onTrial();
-    }
-
-    //-- check if subscription is inactive
-    public function inactive(): bool
-    {
-        return ! $this->active();
     }
 
     //-- check if subscription is on trial
@@ -255,14 +249,7 @@ class PlanSubscription extends Model
     {
         return $this->getFeatureValue($featureSlug) - $this->getFeatureUsage($featureSlug);
     }
-
-    //-- get item value by slug
-    public function getFeatureValue(string $featureSlug)
-    {
-        $feature = $this->plan->features()->where('slug', $featureSlug)->first();
-
-        return $feature->value ?? null;
-    }
+    
 //
 
 }

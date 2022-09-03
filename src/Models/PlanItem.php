@@ -51,16 +51,6 @@ class PlanItem extends Model implements Sortable
         parent::__construct($attributes);
     }
 
-    //-- define default deleting action
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::deleted(function ($plan_feature) {
-            $plan_feature->usage()->delete();
-        });
-    }
-
     //-- get slugs options required from slug package by spatie
     public function getSlugOptions() : SlugOptions
     {
@@ -87,14 +77,5 @@ class PlanItem extends Model implements Sortable
 
 //
 
-
-// == FUNCTIONS
-
-    //-- get reset date of a plan item
-    public function getResetDate(Carbon $dateFrom)#: Carbon
-    {
-        #$period = new Period($this->resettable_interval, $this->resettable_period, $dateFrom ?? now());
-        #return $period->getEndDate();
-    }
 
 }
