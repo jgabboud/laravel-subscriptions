@@ -2,10 +2,12 @@
 
 namespace Jgabboud\Subscriptions\Traits;
 
+use stdClass;
 use Carbon\Carbon;
 use Jgabboud\Subscriptions\Models\Plan;
+use Jgabboud\Subscriptions\Models\PlanItem;
 use Jgabboud\Subscriptions\Models\PlanSubscription;
-use stdClass;
+use Jgabboud\Subscriptions\Models\PlanSubscriptionItem;
 
 trait HasSubscriptions
 {
@@ -86,10 +88,16 @@ trait HasSubscriptions
     public function subscribe(Plan $plan): PlanSubscription
     {
     
-        $trial = $this->intervalDates($plan->trial_interval, $plan->trial_period, Carbon::now());
-        $issue = $this->intervalDates($plan->trial_interval, $plan->trial_period, $trial->end_date);            
+        $trial = $this->intervalDates($plan->trial_duration, $plan->trial_duration_type, Carbon::now());
+        $issue = $this->intervalDates($plan->package_duration, $plan->package_duration_type, $trial->end_date);            
 
-        return $this->planSubscriptions()->create([
+        //-- get all related plan items
+        $plan_items = PlanItem::whereHas('plan', function($query) use ($plan){
+            $query->where('plans.id', $plan->id);
+        })->get();        
+
+        //-- create subscription
+        $new_subscription = $this->planSubscriptions()->create([
             'plan_id' => $plan->id,
             'plan_slug' => $plan->slug,
             'plan_name' => $plan->name,
@@ -99,6 +107,26 @@ trait HasSubscriptions
             'starts_at' => $issue->start_date,
             'ends_at' => $issue->end_date
         ]);
+
+        //-- mimic plan items to subscription items
+        $subscription_items = [];
+        foreach ($plan_items as $item){            
+
+            $item_duration = $this->intervalDates($item->item_duration, $plan->item_duration_type, Carbon::now());
+            $subscription_items[] = new PlanSubscriptionItem([
+                'plan_subscription_id' => $new_subscription->id,
+                'plan_item_id' => $item->id,
+                'item_slug' => $item->slug,
+                'item_name' => $item->name,
+                'item_description' => $item->description,
+                'value' => $item->value,
+                'used' => 0,
+                'valid_until' => $item_duration->end_date
+            ]);
+        }
+        $new_subscription->subscriptionItems()->saveMany($subscription_items);
+
+        return $new_subscription;
     }
 //
 

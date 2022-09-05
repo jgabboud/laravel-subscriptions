@@ -18,8 +18,8 @@ class PlanSubscriptionItem extends Model
         'item_description',
     ];
     protected $fillable = [
-        'subscription_id',
-        'item_id',
+        'plan_subscription_id',
+        'plan_item_id',
         'item_slug',
         'item_name',
         'item_description',
