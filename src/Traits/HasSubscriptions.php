@@ -84,7 +84,7 @@ trait HasSubscriptions
 
 // == EDIT
 
-    //-- subscribe to a new plan
+    //-- subscribe to a new plan with items
     public function subscribe(Plan $plan): PlanSubscription
     {
     
