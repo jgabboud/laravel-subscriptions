@@ -78,17 +78,18 @@ To assign an item to a plan first lets create the item and then assign it as fol
 //-- create plan item
 PlanItem::create([
      'name' => 'Emails', 
-     'description' => 'Limit number of emails', 
-     'value' => 70
+     'description' => 'Limit number of emails'
 ]);
 
 
 $plan = Plan::find(1);
-$item_ids = [1, 2];
+$items[] = (object)['item_id' => 1, 'value' => 15,'item_duration' => 10, 'item_duration_type' => 'days'];
+$items[] = (object)['item_id' => 2, 'value' => 30,'item_duration' => 10, 'item_duration_type' => 'days'];
 
 //-- assign items to plan
-$plan->assignItems($item_ids);
+$plan->assignItems($items);
 
+item_ids = [1, 2];
 //-- remove items from plan
 $plan->revokeItems($item_ids);
 ```
