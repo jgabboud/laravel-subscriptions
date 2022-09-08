@@ -41,9 +41,6 @@ return new class extends Migration
             $table->string('slug');
             $table->json('name');
             $table->json('description')->nullable();
-            $table->string('value');
-            $table->integer('item_duration')->default(0);
-            $table->string('item_duration_type')->default('month');
             $table->integer('sort_order')->default(0);
             $table->timestamps();
             $table->softDeletes();
@@ -56,6 +53,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('plan_id');
             $table->unsignedBigInteger('plan_item_id');
+            $table->string('value');
+            $table->integer('item_duration')->default(0);
+            $table->string('item_duration_type')->default('month');
+            $table->timestamps();
             
             $table->unique(['plan_id', 'plan_item_id']);
             $table->foreign('plan_id')->references('id')->on('plans')->onDelete('cascade');

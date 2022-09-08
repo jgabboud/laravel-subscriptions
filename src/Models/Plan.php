@@ -79,7 +79,7 @@ class Plan extends Model implements Sortable
     //-- items
     public function items()
     {
-        return $this->belongsToMany(PlanItem::class, 'plan_has_items');
+        return $this->belongsToMany(PlanItem::class, 'plan_has_items')->withPivot('value', 'item_duration', 'item_duration_type')->withTimestamps();
     }
 
     //-- subscriptions
@@ -113,6 +113,14 @@ class Plan extends Model implements Sortable
     //-- assign items to plan
     public function assignItems($items)
     {
+        $assign_items = [];
+        foreach($items as $item){
+            $assign_items[$item->item_id] = [
+                'value' => $item->value ?? null,
+                'item_duration' => $item->item_duration ?? null,
+                'item_duration_type' => $item->item_duration_type ?? null,
+            ];
+        }
         return $this->items()->sync($items, false);
     }
 
