@@ -14,7 +14,7 @@ plan_subscription_usages
 ## Installation
 install the package using composer
 ```
-composer require jgabboud/subscriptions
+composer require jgabboud/laravel-subscriptions
 ```
 
 publish the vendor
