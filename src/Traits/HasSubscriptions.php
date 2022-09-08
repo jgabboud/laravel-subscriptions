@@ -91,10 +91,8 @@ trait HasSubscriptions
         $trial = $this->intervalDates($plan->trial_duration, $plan->trial_duration_type, Carbon::now());
         $issue = $this->intervalDates($plan->package_duration, $plan->package_duration_type, $trial->end_date);            
 
-        //-- get all related plan items
-        $plan_items = PlanItem::whereHas('plan', function($query) use ($plan){
-            $query->where('plans.id', $plan->id);
-        })->get();        
+        //-- get all related plan items        
+        $plan_items = $plan->items()->get();      
 
         //-- create subscription
         $new_subscription = $this->planSubscriptions()->create([
@@ -112,14 +110,14 @@ trait HasSubscriptions
         $subscription_items = [];
         foreach ($plan_items as $item){            
 
-            $item_duration = $this->intervalDates($item->item_duration, $plan->item_duration_type, Carbon::now());
+            $item_duration = $this->intervalDates($item->pivot->item_duration, $item->pivot->item_duration_type, Carbon::now());
             $subscription_items[] = new PlanSubscriptionItem([
                 'plan_subscription_id' => $new_subscription->id,
                 'plan_item_id' => $item->id,
                 'item_slug' => $item->slug,
                 'item_name' => $item->name,
                 'item_description' => $item->description,
-                'value' => $item->value,
+                'value' => $item->pivot->value,
                 'used' => 0,
                 'valid_until' => $item_duration->end_date
             ]);
