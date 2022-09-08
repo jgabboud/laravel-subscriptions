@@ -121,7 +121,7 @@ class Plan extends Model implements Sortable
                 'item_duration_type' => $item->item_duration_type ?? null,
             ];
         }
-        return $this->items()->sync($items, false);
+        return $this->items()->sync($assign_items, false);
     }
 
     //-- remove items from plan
